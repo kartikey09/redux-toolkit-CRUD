@@ -1,4 +1,5 @@
 const {configureStore} = require('@reduxjs/toolkit');
+const produce = require('immer').produce;
 
 const CAKE_ORDRED = 'CAKE_ORDERED';
 const CAKE_RESTOCK = 'CAKE_RESTOCK';
@@ -43,15 +44,9 @@ const initialIcecreamState = {
 
 const Cakereducer = (state = initialCakeState, action) =>{
     switch(action.type){
-        case CAKE_ORDRED: return {
-            ...state,
-            numOfCakes : state.numOfCakes - 1
-        }
+        case CAKE_ORDRED: return produce(state, (draft)=>{draft.numOfCakes -= 1})
 
-        case CAKE_RESTOCK: return{
-            ...state,
-            numOfCakes: action.payload
-        }
+        case CAKE_RESTOCK: return produce(state, (draft)=>{draft.numOfCakes = action.payload});
         default: 
             return state
     }
@@ -59,15 +54,9 @@ const Cakereducer = (state = initialCakeState, action) =>{
 
 const Icecreamreducer = (state = initialIcecreamState, action) =>{
     switch(action.type){
-        case ICECREAM_ORDER: return {
-            ...state,
-            numOfIcecreams : state.numOfIcecreams - 1
-        }
+        case ICECREAM_ORDER: return produce(state, (draft)=>{draft.numOfIcecreams -= 1});
 
-        case ICECREAM_RESTOCK: return{
-            ...state,
-            numOfIcecreams: action.payload
-        }
+        case ICECREAM_RESTOCK: return produce(state, (draft)=>{draft.numOfIcecreams = action.payload});
         default: 
             return state
     }
