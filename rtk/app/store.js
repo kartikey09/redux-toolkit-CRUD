@@ -12,4 +12,4 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
-module.exports = store;
+module.exports = store; 
